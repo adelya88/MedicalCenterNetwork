@@ -19,6 +19,10 @@ namespace MedicalCenterNetwork.Models
         public string Password { get; set; }
         public bool IsActive { get; set; } = true;
 
+        public string SpecializationName { get; set; }
+        public string BranchName { get; set; }
+        public string Status { get; set; }
+
         // Навигационные свойства (для удобства)
         public string FullName => $"{LastName} {FirstName} {MiddleName}";
         public Branch Branch { get; set; }

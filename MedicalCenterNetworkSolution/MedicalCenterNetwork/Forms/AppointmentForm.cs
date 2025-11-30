@@ -57,20 +57,29 @@ namespace MedicalCenterNetwork.Forms
                 comboBoxService.DisplayMember = "Name";
                 comboBoxService.ValueMember = "ID_service";
 
-                // Врачи из текущей базы (БЕЗ присоединения к Specializations)
+                // Врачи из текущей базы (простой запрос без специализаций)
                 string doctorsQuery = @"
-            SELECT 
-                ID_employee, 
-                LastName || ' ' || FirstName || ' ' || MiddleName as FullName,
-                ID_specialization
-            FROM Employees 
-            WHERE Position = 'Врач' AND IsActive = 1 
-            ORDER BY LastName, FirstName";
+    SELECT 
+        ID_employee, 
+        LastName || ' ' || FirstName || ' ' || MiddleName as FullName
+    FROM Employees 
+    WHERE Position = 'Врач' AND IsActive = 1 
+    AND ID_branch = @BranchID
+    ORDER BY LastName, FirstName";
 
-                var doctors = db.ExecuteQuery(doctorsQuery);
+                var doctorsParams = new SQLiteParameter[] {
+    new SQLiteParameter("@BranchID", UserSession.BranchID)
+};
+                var doctors = db.ExecuteQuery(doctorsQuery, doctorsParams);
                 comboBoxDoctor.DataSource = doctors;
                 comboBoxDoctor.DisplayMember = "FullName";
                 comboBoxDoctor.ValueMember = "ID_employee";
+
+                // Убедитесь, что комбобокс в нормальном режиме
+                comboBoxDoctor.DrawMode = DrawMode.Normal;
+
+                // Убираем кастомное отображение, так как у нас нет специализации в локальной базе
+                comboBoxDoctor.DrawMode = DrawMode.Normal;
 
                 // Кабинеты из текущей базы
                 string cabinetsQuery = @"
@@ -110,6 +119,43 @@ namespace MedicalCenterNetwork.Forms
                 appointment.ID_patient = patient.ID_patient;
                 textBoxPatient.Text = patient.FullName;
                 textBoxPatient.Tag = patient;
+            }
+        }
+
+        // НОВЫЙ МЕТОД: Поиск врача
+        private void buttonSearchDoctor_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var searchForm = new DoctorSearchForm();
+                if (searchForm.ShowDialog() == DialogResult.OK && searchForm.SelectedDoctor != null)
+                {
+                    var doctor = searchForm.SelectedDoctor;
+
+                    // Ищем врача в комбобоксе и устанавливаем его как выбранного
+                    bool doctorFound = false;
+                    for (int i = 0; i < comboBoxDoctor.Items.Count; i++)
+                    {
+                        var item = comboBoxDoctor.Items[i] as DataRowView;
+                        if (item != null && Convert.ToInt32(item["ID_employee"]) == doctor.ID_employee)
+                        {
+                            comboBoxDoctor.SelectedIndex = i;
+                            doctorFound = true;
+                            break;
+                        }
+                    }
+
+                    if (!doctorFound)
+                    {
+                        MessageBox.Show("Выбранный врач не найден в списке доступных врачей", "Внимание",
+                            MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при выборе врача: {ex.Message}", "Ошибка",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

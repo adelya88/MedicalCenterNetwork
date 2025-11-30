@@ -82,5 +82,36 @@ namespace MedicalCenterNetwork.Data
             string query = "SELECT ID_service, Name, Duration_minutes, Base_cost FROM MedicalServices ORDER BY Name";
             return mainDb.ExecuteQuery(query);
         }
+
+        // Метод для получения специализаций из главной базы
+        public static DataTable GetSpecializations()
+        {
+            try
+            {
+                var mainDb = GetMainDatabase();
+                string query = "SELECT ID_specialization, Name FROM Specializations ORDER BY Name";
+                return mainDb.ExecuteQuery(query);
+            }
+            catch (Exception ex)
+            {
+                // Просто возвращаем пустую таблицу с нужной структурой
+                DataTable emptyTable = new DataTable();
+                emptyTable.Columns.Add("ID_specialization", typeof(int));
+                emptyTable.Columns.Add("Name", typeof(string));
+
+                // Можно добавить базовые специализации на случай ошибки
+                emptyTable.Rows.Add(1, "Терапевт");
+                emptyTable.Rows.Add(2, "Хирург");
+                emptyTable.Rows.Add(3, "Кардиолог");
+
+                return emptyTable;
+            }
+        }
+
+        // Получение строки подключения к главной базе
+        public static string GetMainDatabaseConnectionString()
+        {
+            return $"Data Source={DatabasePaths["Main"]};Version=3;";
+        }
     }
 }

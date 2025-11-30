@@ -24,6 +24,7 @@
         private System.Windows.Forms.Button buttonSave;
         private System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.ErrorProvider errorProvider;
+        private System.Windows.Forms.Button buttonSearchDoctor; // НОВАЯ КНОПКА
 
         protected override void Dispose(bool disposing)
         {
@@ -39,6 +40,7 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AppointmentForm));
             this.groupBoxAppointmentInfo = new System.Windows.Forms.GroupBox();
+            this.buttonSearchDoctor = new System.Windows.Forms.Button();
             this.labelStatus = new System.Windows.Forms.Label();
             this.comboBoxStatus = new System.Windows.Forms.ComboBox();
             this.labelCabinet = new System.Windows.Forms.Label();
@@ -68,6 +70,7 @@
             // 
             this.groupBoxAppointmentInfo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBoxAppointmentInfo.Controls.Add(this.buttonSearchDoctor);
             this.groupBoxAppointmentInfo.Controls.Add(this.labelStatus);
             this.groupBoxAppointmentInfo.Controls.Add(this.comboBoxStatus);
             this.groupBoxAppointmentInfo.Controls.Add(this.labelCabinet);
@@ -93,6 +96,23 @@
             this.groupBoxAppointmentInfo.TabIndex = 0;
             this.groupBoxAppointmentInfo.TabStop = false;
             this.groupBoxAppointmentInfo.Text = "Информация о записи";
+            // 
+            // buttonSearchDoctor
+            // 
+            this.buttonSearchDoctor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonSearchDoctor.BackColor = System.Drawing.Color.SteelBlue;
+            this.buttonSearchDoctor.FlatAppearance.BorderSize = 0;
+            this.buttonSearchDoctor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonSearchDoctor.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonSearchDoctor.ForeColor = System.Drawing.Color.White;
+            this.buttonSearchDoctor.Location = new System.Drawing.Point(660, 144);
+            this.buttonSearchDoctor.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.buttonSearchDoctor.Name = "buttonSearchDoctor";
+            this.buttonSearchDoctor.Size = new System.Drawing.Size(149, 48);
+            this.buttonSearchDoctor.TabIndex = 16;
+            this.buttonSearchDoctor.Text = "Поиск";
+            this.buttonSearchDoctor.UseVisualStyleBackColor = false;
+            this.buttonSearchDoctor.Click += new System.EventHandler(this.buttonSearchDoctor_Click);
             // 
             // labelStatus
             // 
@@ -243,7 +263,7 @@
             this.comboBoxDoctor.Location = new System.Drawing.Point(180, 151);
             this.comboBoxDoctor.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.comboBoxDoctor.Name = "comboBoxDoctor";
-            this.comboBoxDoctor.Size = new System.Drawing.Size(628, 36);
+            this.comboBoxDoctor.Size = new System.Drawing.Size(469, 36);
             this.comboBoxDoctor.TabIndex = 2;
             // 
             // buttonSearchPatient
@@ -356,12 +376,13 @@
             this.Name = "AppointmentForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Запись на прием";
+            this.Load += new System.EventHandler(this.AppointmentForm_Load);
             this.groupBoxAppointmentInfo.ResumeLayout(false);
             this.groupBoxAppointmentInfo.PerformLayout();
             this.groupBoxActions.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
             this.ResumeLayout(false);
-            this.Load += new System.EventHandler(this.AppointmentForm_Load);
+
         }
     }
 }

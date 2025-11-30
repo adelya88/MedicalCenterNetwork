@@ -16,3 +16,6 @@ D:\Папка Адели\MedicalCenterNetworkSolution\MedicalCenterNetwork\obj\D
 D:\Папка Адели\MedicalCenterNetworkSolution\MedicalCenterNetwork\obj\Debug\MedicalCenterNetwork.Forms.PatientForm.resources
 D:\Папка Адели\MedicalCenterNetworkSolution\MedicalCenterNetwork\obj\Debug\MedicalCenterNetwork.Forms.AppointmentForm.resources
 D:\Папка Адели\MedicalCenterNetworkSolution\MedicalCenterNetwork\obj\Debug\MedicalCenterNetwork.Forms.PatientSearchForm.resources
+D:\Папка Адели\MedicalCenterNetworkSolution\MedicalCenterNetwork\obj\Debug\MedicalCenterNetwork.Forms.DoctorSearchForm.resources
+D:\Папка Адели\MedicalCenterNetworkSolution\MedicalCenterNetwork\obj\Debug\MedicalCenterNetwork.Forms.EmployeeForm.resources
+D:\Папка Адели\MedicalCenterNetworkSolution\MedicalCenterNetwork\obj\Debug\MedicalCenterNetwork.Forms.EmployeesManagementForm.resources

@@ -30,38 +30,112 @@ namespace MedicalCenterNetwork.Forms
 
         private void ConfigureMenuByRole()
         {
-            // Скрываем все меню сначала
+            // Сначала скрываем все меню
             administrationToolStripMenuItem.Visible = false;
             patientsToolStripMenuItem.Visible = false;
             scheduleToolStripMenuItem.Visible = false;
             medicalRecordsToolStripMenuItem.Visible = false;
             reportsToolStripMenuItem.Visible = false;
 
-            // Показываем меню в зависимости от должности
-            switch (UserSession.Position)
+            // Скрываем подпункты, которые будут настраиваться отдельно
+            employeesToolStripMenuItem.Visible = false;
+            cabinetsToolStripMenuItem.Visible = false;
+            registerPatientToolStripMenuItem.Visible = false;
+            searchPatientToolStripMenuItem.Visible = false;
+            myScheduleToolStripMenuItem.Visible = false;
+            createAppointmentToolStripMenuItem.Visible = false;
+            viewMedicalRecordsToolStripMenuItem.Visible = false;
+            createRecordToolStripMenuItem.Visible = false;
+            myStatisticsToolStripMenuItem.Visible = false;
+            branchStatisticsToolStripMenuItem.Visible = false;
+
+            // Настраиваем меню в зависимости от должности
+            switch (UserSession.Position.ToLower())
             {
-                case "Администратор":
-                    administrationToolStripMenuItem.Visible = true;
-                    patientsToolStripMenuItem.Visible = true;
-                    scheduleToolStripMenuItem.Visible = true;
-                    medicalRecordsToolStripMenuItem.Visible = true;
-                    reportsToolStripMenuItem.Visible = true;
-                    createAppointmentToolStripMenuItem.Visible = true;
+                case "администратор":
+                    ConfigureAdminMenu();
                     break;
-
-                case "Врач":
-                    patientsToolStripMenuItem.Visible = true;
-                    scheduleToolStripMenuItem.Visible = true;
-                    medicalRecordsToolStripMenuItem.Visible = true;
-                    reportsToolStripMenuItem.Visible = true;
-                    createAppointmentToolStripMenuItem.Visible = true;
+                case "врач":
+                    ConfigureDoctorMenu();
                     break;
-
-                case "Медсестра":
-                    scheduleToolStripMenuItem.Visible = true;
-                    medicalRecordsToolStripMenuItem.Visible = true;
+                case "медсестра":
+                    ConfigureNurseMenu();
+                    break;
+                default:
+                    MessageBox.Show("Неизвестная роль пользователя", "Ошибка",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     break;
             }
+        }
+
+        private void ConfigureAdminMenu()
+        {
+            // Администратору доступно всё
+            administrationToolStripMenuItem.Visible = true;
+            patientsToolStripMenuItem.Visible = true;
+            scheduleToolStripMenuItem.Visible = true;
+            medicalRecordsToolStripMenuItem.Visible = true;
+            reportsToolStripMenuItem.Visible = true;
+
+            // Подпункты администрирования
+            employeesToolStripMenuItem.Visible = true;
+            cabinetsToolStripMenuItem.Visible = true;
+
+            // Подпункты пациентов
+            registerPatientToolStripMenuItem.Visible = true;
+            searchPatientToolStripMenuItem.Visible = true;
+
+            // Подпункты расписания
+            myScheduleToolStripMenuItem.Visible = true;
+            createAppointmentToolStripMenuItem.Visible = true;
+
+            // Подпункты медкарт
+            viewMedicalRecordsToolStripMenuItem.Visible = true;
+            createRecordToolStripMenuItem.Visible = true;
+
+            // Подпункты отчетов
+            myStatisticsToolStripMenuItem.Visible = true;
+            branchStatisticsToolStripMenuItem.Visible = true;
+        }
+
+        private void ConfigureDoctorMenu()
+        {
+            // Врачу доступно ограниченное меню
+            patientsToolStripMenuItem.Visible = true;
+            scheduleToolStripMenuItem.Visible = true;
+            medicalRecordsToolStripMenuItem.Visible = true;
+            reportsToolStripMenuItem.Visible = true;
+
+            // Подпункты пациентов (только поиск)
+            searchPatientToolStripMenuItem.Visible = true;
+            registerPatientToolStripMenuItem.Visible = false; // Врач не регистрирует новых пациентов
+
+            // Подпункты расписания
+            myScheduleToolStripMenuItem.Visible = true;
+            createAppointmentToolStripMenuItem.Visible = false; // Врач не создает записи
+
+            // Подпункты медкарт
+            viewMedicalRecordsToolStripMenuItem.Visible = true;
+            createRecordToolStripMenuItem.Visible = true;
+
+            // Подпункты отчетов
+            myStatisticsToolStripMenuItem.Visible = true;
+            branchStatisticsToolStripMenuItem.Visible = false; // Врач не видит статистику филиала
+        }
+
+        private void ConfigureNurseMenu()
+        {
+            // Медсестре доступно минимальное меню
+            scheduleToolStripMenuItem.Visible = true;
+            medicalRecordsToolStripMenuItem.Visible = true;
+
+            // Подпункты расписания
+            myScheduleToolStripMenuItem.Visible = true;
+            createAppointmentToolStripMenuItem.Visible = false;
+
+            // Подпункты медкарт (только просмотр)
+            viewMedicalRecordsToolStripMenuItem.Visible = true;
+            createRecordToolStripMenuItem.Visible = false; // Медсестра не создает записи в медкарты
         }
 
         private void OpenChildForm(Form childForm)
@@ -99,13 +173,12 @@ namespace MedicalCenterNetwork.Forms
         // Меню: Администрирование
         private void employeesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Форма управления сотрудниками будет реализована позже",
-                "Управление сотрудниками", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            OpenChildForm(new EmployeesManagementForm());
         }
 
         private void cabinetsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Форма управления кабинетами будет реализована позже",
+            MessageBox.Show("Форма управления кабинетами будет реализована на следующем этапе",
                 "Управление кабинетами", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
@@ -117,44 +190,46 @@ namespace MedicalCenterNetwork.Forms
 
         private void searchPatientToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new PatientsForm());
+            OpenChildForm(new PatientSearchForm());
         }
 
         // Меню: Расписание
         private void myScheduleToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Форма моего расписания будет реализована позже",
+            MessageBox.Show("Форма просмотра расписания будет реализована на следующем этапе",
                 "Мое расписание", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void createAppointmentToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new AppointmentForm());
+            // Используем существующую форму записи на прием
+            var appointmentForm = new AppointmentForm();
+            appointmentForm.ShowDialog();
         }
 
         // Меню: Медкарты
         private void viewMedicalRecordsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Форма просмотра медкарт будет реализована позже",
+            MessageBox.Show("Форма просмотра медкарт будет реализована на следующем этапе",
                 "Медицинские карты", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void createRecordToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Форма создания записи в медкарту будет реализована позже",
+            MessageBox.Show("Форма создания записи в медкарту будет реализована на следующем этапе",
                 "Создание записи в медкарту", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         // Меню: Отчеты
         private void myStatisticsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Форма личной статистики будет реализована позже",
+            MessageBox.Show("Форма личной статистики будет реализована на следующем этапе",
                 "Моя статистика", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void branchStatisticsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Форма статистики филиала будет реализована позже",
+            MessageBox.Show("Форма статистики филиала будет реализована на следующем этапе",
                 "Статистика филиала", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
