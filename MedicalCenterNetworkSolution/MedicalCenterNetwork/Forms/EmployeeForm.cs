@@ -43,11 +43,12 @@ namespace MedicalCenterNetwork.Forms
                 textBoxPassword.Visible = false;
             }
 
-            // Для новых сотрудников устанавливаем текущий филиал по умолчанию
-            if (!isEditMode)
-            {
-                comboBoxBranch.SelectedValue = UserSession.BranchID;
-            }
+            // Добавляем подсказку для филиала
+            labelBranch.Text = "Филиал: (текущий)";
+
+            // Или можно добавить ToolTip
+            ToolTip toolTip = new ToolTip();
+            toolTip.SetToolTip(comboBoxBranch, "Филиал нельзя изменить. Сотрудник всегда привязан к вашему филиалу.");
         }
 
         private void LoadComboBoxData()
@@ -60,23 +61,16 @@ namespace MedicalCenterNetwork.Forms
                 comboBoxSpecialization.DisplayMember = "Name";
                 comboBoxSpecialization.ValueMember = "ID_specialization";
 
-                // Загрузка филиалов
-                var branches = new[]
+                // ЗАГРУЗКА ФИЛИАЛОВ - ИЗМЕНЕНИЯ ЗДЕСЬ
+                // ДЛЯ ВСЕХ СЛУЧАЕВ (добавление и редактирование) показываем только текущий филиал
+                var currentBranch = new[]
                 {
-                    new { ID = 1, Name = "Главный филиал" },
-                    new { ID = 2, Name = "Северный филиал" },
-                    new { ID = 3, Name = "Южный филиал" },
-                    new { ID = 4, Name = "Западный филиал" }
-                };
-                comboBoxBranch.DataSource = branches;
+            new { ID = UserSession.BranchID, Name = GetCurrentBranchName(UserSession.BranchID) }
+        };
+                comboBoxBranch.DataSource = currentBranch;
                 comboBoxBranch.DisplayMember = "Name";
                 comboBoxBranch.ValueMember = "ID";
-
-                // Автоматически выбираем филиал администратора для новых сотрудников
-                if (!isEditMode)
-                {
-                    comboBoxBranch.SelectedValue = UserSession.BranchID;
-                }
+                comboBoxBranch.Enabled = false; // Всегда блокируем выбор филиала
 
                 // Должности
                 comboBoxPosition.Items.AddRange(new string[] { "Врач", "Медсестра", "Администратор" });
@@ -93,10 +87,55 @@ namespace MedicalCenterNetwork.Forms
             }
         }
 
+        private string GetCurrentBranchName(int branchId)
+        {
+            try
+            {
+                // Пытаемся получить название филиала из главной базы
+                var mainDb = DatabaseManager.GetMainDatabase();
+                string query = "SELECT Name FROM Branches WHERE ID_branch = @BranchID";
+                var parameters = new SQLiteParameter[]
+                {
+            new SQLiteParameter("@BranchID", branchId)
+                };
+
+                var result = mainDb.ExecuteQuery(query, parameters);
+                if (result.Rows.Count > 0)
+                {
+                    return result.Rows[0]["Name"].ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                // В случае ошибки используем резервные названия
+                Console.WriteLine($"Ошибка при получении названия филиала: {ex.Message}");
+            }
+
+            // Резервные названия по ID
+            switch (branchId)
+            {
+                case 1: return "Главный филиал";
+                case 2: return "Северный филиал";
+                case 3: return "Южный филиал";
+                case 4: return "Западный филиал";
+                default: return $"Филиал {branchId}";
+            }
+        }
+
         private void LoadEmployeeData()
         {
             if (isEditMode)
             {
+                // Убедимся, что администратор редактирует сотрудника только из своего филиала
+                if (employee.ID_branch != UserSession.BranchID)
+                {
+                    MessageBox.Show("Вы не можете редактировать сотрудников из других филиалов.",
+                        "Ошибка доступа", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    this.DialogResult = DialogResult.Cancel;
+                    this.Close();
+                    return;
+                }
+
                 textBoxLastName.Text = employee.LastName;
                 textBoxFirstName.Text = employee.FirstName;
                 textBoxMiddleName.Text = employee.MiddleName;
@@ -107,11 +146,6 @@ namespace MedicalCenterNetwork.Forms
                 if (employee.ID_specialization > 0)
                 {
                     comboBoxSpecialization.SelectedValue = employee.ID_specialization;
-                }
-
-                if (employee.ID_branch > 0)
-                {
-                    comboBoxBranch.SelectedValue = employee.ID_branch;
                 }
             }
         }
@@ -159,12 +193,6 @@ namespace MedicalCenterNetwork.Forms
                 isValid = false;
             }
 
-            if (comboBoxBranch.SelectedValue == null)
-            {
-                errorProvider.SetError(comboBoxBranch, "Выберите филиал");
-                isValid = false;
-            }
-
             return isValid;
         }
 
@@ -179,7 +207,10 @@ namespace MedicalCenterNetwork.Forms
                 employee.Login = textBoxLogin.Text.Trim();
                 employee.ID_specialization = comboBoxSpecialization.SelectedValue != null ?
                     Convert.ToInt32(comboBoxSpecialization.SelectedValue) : 0;
-                employee.ID_branch = Convert.ToInt32(comboBoxBranch.SelectedValue);
+
+                // Для всех случаев используем текущий филиал
+                employee.ID_branch = UserSession.BranchID; // Всегда текущий филиал
+
                 employee.IsActive = comboBoxStatus.Text == "Активен";
 
                 string query;
@@ -188,54 +219,54 @@ namespace MedicalCenterNetwork.Forms
                 if (isEditMode)
                 {
                     query = @"
-                UPDATE Employees 
-                SET LastName = @LastName, 
-                    FirstName = @FirstName, 
-                    MiddleName = @MiddleName,
-                    Position = @Position,
-                    Login = @Login,
-                    ID_specialization = @SpecializationID,
-                    ID_branch = @BranchID,
-                    IsActive = @IsActive
-                WHERE ID_employee = @ID_employee";
+                    UPDATE Employees 
+                    SET LastName = @LastName, 
+                        FirstName = @FirstName, 
+                        MiddleName = @MiddleName,
+                        Position = @Position,
+                        Login = @Login,
+                        ID_specialization = @SpecializationID,
+                        ID_branch = @BranchID,  -- Все равно обновляем, но значение то же самое
+                        IsActive = @IsActive
+                    WHERE ID_employee = @ID_employee";
 
                     parameters = new SQLiteParameter[]
                     {
-                new SQLiteParameter("@LastName", employee.LastName),
-                new SQLiteParameter("@FirstName", employee.FirstName),
-                new SQLiteParameter("@MiddleName", employee.MiddleName),
-                new SQLiteParameter("@Position", employee.Position),
-                new SQLiteParameter("@Login", employee.Login),
-                new SQLiteParameter("@SpecializationID", employee.ID_specialization > 0 ?
-                    (object)employee.ID_specialization : DBNull.Value),
-                new SQLiteParameter("@BranchID", employee.ID_branch),
-                new SQLiteParameter("@IsActive", employee.IsActive ? 1 : 0),
-                new SQLiteParameter("@ID_employee", employee.ID_employee)
+                        new SQLiteParameter("@LastName", employee.LastName),
+                        new SQLiteParameter("@FirstName", employee.FirstName),
+                        new SQLiteParameter("@MiddleName", employee.MiddleName),
+                        new SQLiteParameter("@Position", employee.Position),
+                        new SQLiteParameter("@Login", employee.Login),
+                        new SQLiteParameter("@SpecializationID", employee.ID_specialization > 0 ?
+                            (object)employee.ID_specialization : DBNull.Value),
+                        new SQLiteParameter("@BranchID", employee.ID_branch), // Текущий филиал
+                        new SQLiteParameter("@IsActive", employee.IsActive ? 1 : 0),
+                        new SQLiteParameter("@ID_employee", employee.ID_employee)
                     };
                 }
                 else
                 {
                     query = @"
-                INSERT INTO Employees (
-                    ID_branch, LastName, FirstName, MiddleName, 
-                    ID_specialization, Position, Login, Password, IsActive
-                ) VALUES (
-                    @BranchID, @LastName, @FirstName, @MiddleName,
-                    @SpecializationID, @Position, @Login, @Password, @IsActive
-                )";
+                    INSERT INTO Employees (
+                        ID_branch, LastName, FirstName, MiddleName, 
+                        ID_specialization, Position, Login, Password, IsActive
+                    ) VALUES (
+                        @BranchID, @LastName, @FirstName, @MiddleName,
+                        @SpecializationID, @Position, @Login, @Password, @IsActive
+                    )";
 
                     parameters = new SQLiteParameter[]
                     {
-                new SQLiteParameter("@BranchID", employee.ID_branch),
-                new SQLiteParameter("@LastName", employee.LastName),
-                new SQLiteParameter("@FirstName", employee.FirstName),
-                new SQLiteParameter("@MiddleName", employee.MiddleName),
-                new SQLiteParameter("@SpecializationID", employee.ID_specialization > 0 ?
-                    (object)employee.ID_specialization : DBNull.Value),
-                new SQLiteParameter("@Position", employee.Position),
-                new SQLiteParameter("@Login", employee.Login),
-                new SQLiteParameter("@Password", textBoxPassword.Text), // Пароль только при создании
-                new SQLiteParameter("@IsActive", employee.IsActive ? 1 : 0)
+                        new SQLiteParameter("@BranchID", employee.ID_branch), // Текущий филиал
+                        new SQLiteParameter("@LastName", employee.LastName),
+                        new SQLiteParameter("@FirstName", employee.FirstName),
+                        new SQLiteParameter("@MiddleName", employee.MiddleName),
+                        new SQLiteParameter("@SpecializationID", employee.ID_specialization > 0 ?
+                            (object)employee.ID_specialization : DBNull.Value),
+                        new SQLiteParameter("@Position", employee.Position),
+                        new SQLiteParameter("@Login", employee.Login),
+                        new SQLiteParameter("@Password", textBoxPassword.Text), // Пароль только при создании
+                        new SQLiteParameter("@IsActive", employee.IsActive ? 1 : 0)
                     };
                 }
 

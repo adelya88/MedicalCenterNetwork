@@ -81,15 +81,6 @@ namespace MedicalCenterNetwork.Forms
 
             dataGridViewEmployees.Columns.Add(new DataGridViewTextBoxColumn()
             {
-                Name = "BranchName",
-                DataPropertyName = "BranchName",
-                HeaderText = "Филиал",
-                Width = 150,
-                FillWeight = 15
-            });
-
-            dataGridViewEmployees.Columns.Add(new DataGridViewTextBoxColumn()
-            {
                 Name = "Login",
                 DataPropertyName = "Login",
                 HeaderText = "Логин",
@@ -191,8 +182,6 @@ namespace MedicalCenterNetwork.Forms
                         }
                     }
 
-                    string branchName = GetBranchName(Convert.ToInt32(row["ID_branch"]));
-
                     // В цикле foreach при создании объектов Employee:
                     employees.Add(new Employee
                     {
@@ -204,7 +193,6 @@ namespace MedicalCenterNetwork.Forms
                         Login = row["Login"].ToString(),
                         ID_specialization = specializationId,
                         SpecializationName = specializationName,
-                        BranchName = branchName,
                         IsActive = Convert.ToBoolean(row["IsActive"]),
                         Status = Convert.ToBoolean(row["IsActive"]) ? "Активен" : "Неактивен" // ПРАВИЛЬНОЕ ОПРЕДЕЛЕНИЕ СТАТУСА
                     });
@@ -231,9 +219,6 @@ namespace MedicalCenterNetwork.Forms
                 case "SpecializationName":
                     sortExpression = "ID_specialization";
                     break;
-                case "BranchName":
-                    sortExpression = "ID_branch";
-                    break;
             }
 
             if (currentSortOrder == SortOrder.Descending)
@@ -256,18 +241,6 @@ namespace MedicalCenterNetwork.Forms
                 {
                     column.HeaderCell.SortGlyphDirection = SortOrder.None;
                 }
-            }
-        }
-
-        private string GetBranchName(int branchId)
-        {
-            switch (branchId)
-            {
-                case 1: return "Главный филиал";
-                case 2: return "Северный филиал";
-                case 3: return "Южный филиал";
-                case 4: return "Западный филиал";
-                default: return "Неизвестный филиал";
             }
         }
 
