@@ -155,14 +155,16 @@ namespace MedicalCenterNetwork.Forms
         // Меню: Система
         private void profileToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show($"Профиль пользователя:\n\nФИО: {UserSession.FullName}\nДолжность: {UserSession.Position}\nЛогин: {UserSession.Login}\nФилиал: {UserSession.BranchID}",
-                "Мой профиль", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            var profileForm = new ProfileForm();
+            profileForm.ShowDialog();
         }
 
         private void changePasswordToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Функция смены пароля будет реализована позже",
-                "Смена пароля", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            using (var changePasswordForm = new ChangePasswordForm(UserSession.Login, UserSession.FullName, true))
+            {
+                changePasswordForm.ShowDialog();
+            }
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -178,8 +180,7 @@ namespace MedicalCenterNetwork.Forms
 
         private void cabinetsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Форма управления кабинетами будет реализована на следующем этапе",
-                "Управление кабинетами", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            OpenChildForm(new CabinetsManagementForm());
         }
 
         // Меню: Пациенты

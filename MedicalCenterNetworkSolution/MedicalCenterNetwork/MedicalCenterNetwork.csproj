@@ -54,11 +54,30 @@
     <Compile Include="Data\AuthService.cs" />
     <Compile Include="Data\DatabaseHelper.cs" />
     <Compile Include="Data\DatabaseManager.cs" />
+    <Compile Include="Data\Logger.cs" />
     <Compile Include="Forms\AppointmentForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\AppointmentForm.Designer.cs">
       <DependentUpon>AppointmentForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\CabinetForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\CabinetForm.Designer.cs">
+      <DependentUpon>CabinetForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\CabinetsManagementForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\CabinetsManagementForm.Designer.cs">
+      <DependentUpon>CabinetsManagementForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ChangePasswordForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ChangePasswordForm.Designer.cs">
+      <DependentUpon>ChangePasswordForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\DoctorSearchForm.cs">
       <SubType>Form</SubType>
@@ -108,9 +127,16 @@
     <Compile Include="Forms\PatientsForm.Designer.cs">
       <DependentUpon>PatientsForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\ProfileForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ProfileForm.Designer.cs">
+      <DependentUpon>ProfileForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\Appointment.cs" />
     <Compile Include="Models\Branch.cs" />
     <Compile Include="Models\Cabinet.cs" />
+    <Compile Include="Models\CabinetExtensions.cs" />
     <Compile Include="Models\CompletedProcedure.cs" />
     <Compile Include="Models\Employee.cs" />
     <Compile Include="Models\MedicalRecord.cs" />
@@ -122,6 +148,15 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Forms\AppointmentForm.resx">
       <DependentUpon>AppointmentForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\CabinetForm.resx">
+      <DependentUpon>CabinetForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\CabinetsManagementForm.resx">
+      <DependentUpon>CabinetsManagementForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ChangePasswordForm.resx">
+      <DependentUpon>ChangePasswordForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\DoctorSearchForm.resx">
       <DependentUpon>DoctorSearchForm.cs</DependentUpon>
@@ -146,6 +181,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\PatientsForm.resx">
       <DependentUpon>PatientsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ProfileForm.resx">
+      <DependentUpon>ProfileForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

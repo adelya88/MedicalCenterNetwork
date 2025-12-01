@@ -416,5 +416,43 @@ namespace MedicalCenterNetwork.Forms
             }
         }
 
+        private void buttonChangePassword_Click(object sender, EventArgs e)
+        {
+            if (dataGridViewEmployees.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Выберите сотрудника для смены пароля", "Внимание",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            var selectedEmployee = dataGridViewEmployees.SelectedRows[0].DataBoundItem as Employee;
+            if (selectedEmployee != null)
+            {
+                // Проверяем, что администратор не пытается сменить свой пароль через эту форму
+                if (selectedEmployee.Login == UserSession.Login)
+                {
+                    MessageBox.Show("Для смены своего пароля используйте меню 'Система -> Сменить пароль'",
+                        "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
+                // Проверяем, что сотрудник активен
+                if (!selectedEmployee.IsActive)
+                {
+                    MessageBox.Show("Нельзя сменить пароль неактивному сотруднику",
+                        "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                // Показываем форму для смены пароля (администратор меняет пароль другому сотруднику)
+                using (var changePasswordForm = new ChangePasswordForm(selectedEmployee.Login, selectedEmployee.FullName, false))
+                {
+                    if (changePasswordForm.ShowDialog() == DialogResult.OK)
+                    {
+                        // Сообщение об успехе показывается в самой форме смены пароля
+                    }
+                }
+            }
+        }
     }
 }

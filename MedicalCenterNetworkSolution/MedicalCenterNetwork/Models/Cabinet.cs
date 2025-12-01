@@ -15,5 +15,12 @@ namespace MedicalCenterNetwork.Models
 
         // Навигационные свойства
         public Branch Branch { get; set; }
+
+        // Дополнительные свойства для отображения (не сохраняются в БД)
+        [System.ComponentModel.Browsable(false)]
+        public string BranchInfo => Branch?.Name ?? "Неизвестный филиал";
+
+        [System.ComponentModel.Browsable(false)]
+        public string FullInfo => $"Кабинет {CabinetNumber} - {Purpose}";
     }
 }

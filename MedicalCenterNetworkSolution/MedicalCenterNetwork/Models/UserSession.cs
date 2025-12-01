@@ -15,6 +15,8 @@ namespace MedicalCenterNetwork.Models
         public static int BranchID { get; set; }
         public static string BranchName { get; set; }
 
+        public static string CurrentUser => Login;
+
         public static void Clear()
         {
             EmployeeID = 0;
