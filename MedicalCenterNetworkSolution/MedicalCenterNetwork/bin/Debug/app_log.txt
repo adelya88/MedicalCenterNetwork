@@ -1,0 +1,129 @@
+2025-12-01 17:12:23 [INFO] Пользователь admin2 изменил свой пароль
+2025-12-01 17:15:09 [INFO] Пользователь admin1 изменил свой пароль
+2025-12-01 17:18:44 [INFO] Пользователь severov_doctor изменил свой пароль
+2025-12-01 17:19:01 [INFO] Пользователь severov_doctor изменил свой пароль
+2025-12-01 17:19:34 [INFO] Пользователь severov_doctor изменил свой пароль
+2025-12-01 17:20:07 [INFO] Пользователь severov_doctor изменил свой пароль
+2025-12-01 17:20:41 [INFO] Пользователь admin_north изменил свой пароль
+2025-12-01 17:21:36 [INFO] Пользователь severnaya_nurse изменил свой пароль
+2025-12-01 17:22:09 [INFO] Пользователь severnaya_nurse изменил свой пароль
+2025-12-01 17:35:52 [INFO] Пользователь admin2 изменил свой пароль
+2025-12-01 17:37:25 [INFO] Пользователь admin_north изменил свой пароль
+2025-12-01 17:38:47 [INFO] Пользователь admin1 изменил свой пароль
+2025-12-01 17:40:08 [INFO] Пользователь admin2 изменил свой пароль
+2025-12-01 18:27:35 [INFO] Пользователь ivanov_doctor изменил свой пароль
+2025-12-01 18:28:17 [INFO] Пользователь ivanov_doctor изменил свой пароль
+2025-12-01 18:48:35 [INFO] Администратор admin2 изменил пароль пользователя ivanov_doctor
+2025-12-01 18:49:02 [INFO] Администратор admin2 изменил пароль пользователя ivanov_doctor
+2025-12-01 20:31:07 [ERROR] Ошибка при открытии расписания: Не удалось найти ресурсы, соответствующие указанной культуре или нейтральной культуре.  Проверьте правильность внедрения или связывания "MedicalCenterNetwork.Forms.ScheduleForm.resources" со сборкой "MedicalCenterNetwork" во время компиляции, или убедитесь, что все необходимые сопутствующие сборки полностью подписаны и могут быть загружены.
+2025-12-01 23:08:57 [ERROR] Ошибка при поиске записей на прием: Столбец "ActualCost" не принадлежит таблице .
+   в System.Data.DataRow.GetDataColumn(String columnName)
+   в System.Data.DataRow.get_Item(String columnName)
+   в MedicalCenterNetwork.Forms.MedicalRecordForm.<>c__DisplayClass23_0.<buttonSearchAppointment_Click>b__0(Object s, EventArgs ev) в D:\Папка Адели\MedicalCenterNetworkSolution\MedicalCenterNetwork\Forms\MedicalRecordForm.cs:строка 733
+   в System.Windows.Forms.Control.OnClick(EventArgs e)
+   в System.Windows.Forms.Button.OnClick(EventArgs e)
+   в System.Windows.Forms.Button.OnMouseUp(MouseEventArgs mevent)
+   в System.Windows.Forms.Control.WmMouseUp(Message& m, MouseButtons button, Int32 clicks)
+   в System.Windows.Forms.Control.WndProc(Message& m)
+   в System.Windows.Forms.ButtonBase.WndProc(Message& m)
+   в System.Windows.Forms.Button.WndProc(Message& m)
+   в System.Windows.Forms.Control.ControlNativeWindow.OnMessage(Message& m)
+   в System.Windows.Forms.Control.ControlNativeWindow.WndProc(Message& m)
+   в System.Windows.Forms.NativeWindow.DebuggableCallback(IntPtr hWnd, Int32 msg, IntPtr wparam, IntPtr lparam)
+   в System.Windows.Forms.UnsafeNativeMethods.DispatchMessageW(MSG& msg)
+   в System.Windows.Forms.Application.ComponentManager.System.Windows.Forms.UnsafeNativeMethods.IMsoComponentManager.FPushMessageLoop(IntPtr dwComponentID, Int32 reason, Int32 pvLoopData)
+   в System.Windows.Forms.Application.ThreadContext.RunMessageLoopInner(Int32 reason, ApplicationContext context)
+   в System.Windows.Forms.Application.ThreadContext.RunMessageLoop(Int32 reason, ApplicationContext context)
+   в System.Windows.Forms.Application.RunDialog(Form form)
+   в System.Windows.Forms.Form.ShowDialog(IWin32Window owner)
+   в System.Windows.Forms.Form.ShowDialog()
+   в MedicalCenterNetwork.Forms.MedicalRecordForm.buttonSearchAppointment_Click(Object sender, EventArgs e) в D:\Папка Адели\MedicalCenterNetworkSolution\MedicalCenterNetwork\Forms\MedicalRecordForm.cs:строка 778
+2025-12-01 23:10:13 [ERROR] Ошибка при поиске записей на прием: Столбец "ActualCost" не принадлежит таблице .
+   в System.Data.DataRow.GetDataColumn(String columnName)
+   в System.Data.DataRow.get_Item(String columnName)
+   в MedicalCenterNetwork.Forms.MedicalRecordForm.<>c__DisplayClass23_0.<buttonSearchAppointment_Click>b__0(Object s, EventArgs ev) в D:\Папка Адели\MedicalCenterNetworkSolution\MedicalCenterNetwork\Forms\MedicalRecordForm.cs:строка 733
+   в System.Windows.Forms.Control.OnClick(EventArgs e)
+   в System.Windows.Forms.Button.OnClick(EventArgs e)
+   в System.Windows.Forms.Button.OnMouseUp(MouseEventArgs mevent)
+   в System.Windows.Forms.Control.WmMouseUp(Message& m, MouseButtons button, Int32 clicks)
+   в System.Windows.Forms.Control.WndProc(Message& m)
+   в System.Windows.Forms.ButtonBase.WndProc(Message& m)
+   в System.Windows.Forms.Button.WndProc(Message& m)
+   в System.Windows.Forms.Control.ControlNativeWindow.OnMessage(Message& m)
+   в System.Windows.Forms.Control.ControlNativeWindow.WndProc(Message& m)
+   в System.Windows.Forms.NativeWindow.DebuggableCallback(IntPtr hWnd, Int32 msg, IntPtr wparam, IntPtr lparam)
+   в System.Windows.Forms.UnsafeNativeMethods.DispatchMessageW(MSG& msg)
+   в System.Windows.Forms.Application.ComponentManager.System.Windows.Forms.UnsafeNativeMethods.IMsoComponentManager.FPushMessageLoop(IntPtr dwComponentID, Int32 reason, Int32 pvLoopData)
+   в System.Windows.Forms.Application.ThreadContext.RunMessageLoopInner(Int32 reason, ApplicationContext context)
+   в System.Windows.Forms.Application.ThreadContext.RunMessageLoop(Int32 reason, ApplicationContext context)
+   в System.Windows.Forms.Application.RunDialog(Form form)
+   в System.Windows.Forms.Form.ShowDialog(IWin32Window owner)
+   в System.Windows.Forms.Form.ShowDialog()
+   в MedicalCenterNetwork.Forms.MedicalRecordForm.buttonSearchAppointment_Click(Object sender, EventArgs e) в D:\Папка Адели\MedicalCenterNetworkSolution\MedicalCenterNetwork\Forms\MedicalRecordForm.cs:строка 778
+2025-12-01 23:10:51 [ERROR] Ошибка при поиске записей на прием: Столбец "ActualCost" не принадлежит таблице .
+   в System.Data.DataRow.GetDataColumn(String columnName)
+   в System.Data.DataRow.get_Item(String columnName)
+   в MedicalCenterNetwork.Forms.MedicalRecordForm.<>c__DisplayClass23_0.<buttonSearchAppointment_Click>b__0(Object s, EventArgs ev) в D:\Папка Адели\MedicalCenterNetworkSolution\MedicalCenterNetwork\Forms\MedicalRecordForm.cs:строка 733
+   в System.Windows.Forms.Control.OnClick(EventArgs e)
+   в System.Windows.Forms.Button.OnClick(EventArgs e)
+   в System.Windows.Forms.Button.OnMouseUp(MouseEventArgs mevent)
+   в System.Windows.Forms.Control.WmMouseUp(Message& m, MouseButtons button, Int32 clicks)
+   в System.Windows.Forms.Control.WndProc(Message& m)
+   в System.Windows.Forms.ButtonBase.WndProc(Message& m)
+   в System.Windows.Forms.Button.WndProc(Message& m)
+   в System.Windows.Forms.Control.ControlNativeWindow.OnMessage(Message& m)
+   в System.Windows.Forms.Control.ControlNativeWindow.WndProc(Message& m)
+   в System.Windows.Forms.NativeWindow.DebuggableCallback(IntPtr hWnd, Int32 msg, IntPtr wparam, IntPtr lparam)
+   в System.Windows.Forms.UnsafeNativeMethods.DispatchMessageW(MSG& msg)
+   в System.Windows.Forms.Application.ComponentManager.System.Windows.Forms.UnsafeNativeMethods.IMsoComponentManager.FPushMessageLoop(IntPtr dwComponentID, Int32 reason, Int32 pvLoopData)
+   в System.Windows.Forms.Application.ThreadContext.RunMessageLoopInner(Int32 reason, ApplicationContext context)
+   в System.Windows.Forms.Application.ThreadContext.RunMessageLoop(Int32 reason, ApplicationContext context)
+   в System.Windows.Forms.Application.RunDialog(Form form)
+   в System.Windows.Forms.Form.ShowDialog(IWin32Window owner)
+   в System.Windows.Forms.Form.ShowDialog()
+   в MedicalCenterNetwork.Forms.MedicalRecordForm.buttonSearchAppointment_Click(Object sender, EventArgs e) в D:\Папка Адели\MedicalCenterNetworkSolution\MedicalCenterNetwork\Forms\MedicalRecordForm.cs:строка 778
+2025-12-02 11:22:44 [ERROR] Ошибка при открытии статистики: Не удалось найти ресурсы, соответствующие указанной культуре или нейтральной культуре.  Проверьте правильность внедрения или связывания "MedicalCenterNetwork.Forms.MyStatisticsForm.resources" со сборкой "MedicalCenterNetwork" во время компиляции, или убедитесь, что все необходимые сопутствующие сборки полностью подписаны и могут быть загружены.
+2025-12-02 12:16:09 [ERROR] Ошибка при загрузке MyStatisticsForm: Не удалось загрузить отчет: SQL logic error
+no such table: Записи_на_Прием
+2025-12-02 12:16:13 [ERROR] Ошибка при формировании отчета: Не удалось загрузить отчет: SQL logic error
+no such table: Записи_на_Прием
+2025-12-02 12:25:29 [ERROR] Ошибка при загрузке MyStatisticsForm: Не удалось загрузить отчет: SQL logic error
+no such column: mr.DateTime
+2025-12-02 12:30:38 [ERROR] Ошибка при загрузке детализации приемов: SQL logic error
+no such column: p.Surname
+2025-12-02 12:38:33 [ERROR] Ошибка при открытии статистики: InvalidArgument=Значение '0' недопустимо для 'SelectedIndex'.
+Имя параметра: SelectedIndex
+2025-12-02 12:43:39 [ERROR] Ошибка при открытии статистики: InvalidArgument=Значение '0' недопустимо для 'SelectedIndex'.
+Имя параметра: SelectedIndex
+2025-12-02 13:03:35 [ERROR] Ошибка при открытии статистики: InvalidArgument=Значение '0' недопустимо для 'SelectedIndex'.
+Имя параметра: SelectedIndex
+2025-12-02 13:32:14 [ERROR] Ошибка при загрузке детализации приемов: SQL logic error
+no such table: MedicalServices
+2025-12-02 13:51:11 [ERROR] Ошибка при открытии расписания: Не удалось найти ресурсы, соответствующие указанной культуре или нейтральной культуре.  Проверьте правильность внедрения или связывания "MedicalCenterNetwork.Forms.NurseScheduleForm.resources" со сборкой "MedicalCenterNetwork" во время компиляции, или убедитесь, что все необходимые сопутствующие сборки полностью подписаны и могут быть загружены.
+2025-12-02 13:58:45 [ERROR] Ошибка при открытии расписания: Не удалось найти ресурсы, соответствующие указанной культуре или нейтральной культуре.  Проверьте правильность внедрения или связывания "MedicalCenterNetwork.Forms.NurseScheduleForm.resources" со сборкой "MedicalCenterNetwork" во время компиляции, или убедитесь, что все необходимые сопутствующие сборки полностью подписаны и могут быть загружены.
+2025-12-02 14:00:45 [ERROR] Ошибка при открытии расписания: Не удалось найти ресурсы, соответствующие указанной культуре или нейтральной культуре.  Проверьте правильность внедрения или связывания "MedicalCenterNetwork.Forms.NurseScheduleForm.resources" со сборкой "MedicalCenterNetwork" во время компиляции, или убедитесь, что все необходимые сопутствующие сборки полностью подписаны и могут быть загружены.
+2025-12-02 14:01:03 [ERROR] Ошибка при открытии расписания: Не удалось найти ресурсы, соответствующие указанной культуре или нейтральной культуре.  Проверьте правильность внедрения или связывания "MedicalCenterNetwork.Forms.NurseScheduleForm.resources" со сборкой "MedicalCenterNetwork" во время компиляции, или убедитесь, что все необходимые сопутствующие сборки полностью подписаны и могут быть загружены.
+2025-12-02 14:10:37 [ERROR] Ошибка при загрузке процедур медсестры: SQL logic error
+no such column: cp.ProcedureType
+2025-12-02 14:11:58 [ERROR] Ошибка при загрузке процедур медсестры: SQL logic error
+no such column: cp.ProcedureType
+2025-12-02 14:25:04 [INFO] Пользователь sidorova_nurse изменил свой пароль
+2025-12-02 14:25:19 [INFO] Пользователь sidorova_nurse изменил свой пароль
+2025-12-02 14:39:44 [ERROR] Ошибка при загрузке названия филиала: SQL logic error
+no such column: BranchName
+2025-12-02 14:39:44 [ERROR] Ошибка при загрузке топ-услуг: SQL logic error
+no such table: MedicalServices
+2025-12-02 14:39:50 [ERROR] Ошибка при загрузке топ-услуг: SQL logic error
+no such table: MedicalServices
+2025-12-02 14:39:51 [ERROR] Ошибка при загрузке топ-услуг: SQL logic error
+no such table: MedicalServices
+2025-12-02 14:40:07 [ERROR] Ошибка при загрузке названия филиала: SQL logic error
+no such column: BranchName
+2025-12-02 14:41:12 [ERROR] Ошибка при загрузке названия филиала: SQL logic error
+no such column: BranchName
+2025-12-02 14:51:57 [ERROR] Ошибка при загрузке названия филиала: SQL logic error
+no such column: BranchName
+2025-12-02 14:52:47 [ERROR] Ошибка при загрузке названия филиала: SQL logic error
+no such column: BranchName
+2025-12-02 14:53:09 [ERROR] Ошибка при загрузке названия филиала: SQL logic error
+no such column: BranchName
